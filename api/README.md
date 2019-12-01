@@ -1,5 +1,13 @@
 # JuntoApi
 
+> Elixir Phoenix & Absinthe GraphQL API server
+
+
+For starting up the development environment please use [docker-compose](./../docker-compose.yml)
+from the projects root directory.
+
+or:
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
