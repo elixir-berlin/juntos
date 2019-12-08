@@ -41,13 +41,28 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  /*
+   ** Apollo module configuration
+   ** See https://github.com/nuxt-community/apollo-module
+   */
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint:
+          'https://api.graph.cool/simple/v1/ck3q7tlf541280175q09v5uvh',
+        //browserHttpEndpoint: '/graphql-what',
+        tokenName: 'apollo-token-junto'
+      }
+    }
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

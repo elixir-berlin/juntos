@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app light>
+
     <v-content>
       <v-container>
         <nuxt />
@@ -13,5 +14,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  created() {
+    this.$store.dispatch('authProvider/all')
+  }
+}
 </script>

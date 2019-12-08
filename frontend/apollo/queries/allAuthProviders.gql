@@ -1,0 +1,7 @@
+{
+  allAuthProviders {
+    id
+    clientID
+    type
+  }
+}
