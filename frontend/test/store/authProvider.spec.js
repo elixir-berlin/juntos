@@ -42,7 +42,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   }
 }
 
-describe('authProvider Store', () => {
+describe.skip('authProvider Store', () => {
   test('SET_AUTH_PROVIDERS mutation', () => {
     const state = {
       authProviders: []
