@@ -1,14 +1,14 @@
-//https://vuex.vuejs.org/guide/testing.html
-//const actionsInjector = require('inject-loader!.nuxt/store')
-import * as authProvider from '@/store/authProvider'
+// https://vuex.vuejs.org/guide/testing.html
+// const actionsInjector = require('inject-loader!.nuxt/store')
 import VueApollo from 'vue-apollo'
 
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { cloneDeep } from 'lodash'
 import { async } from 'q'
+import * as authProvider from '@/store/authProvider'
 
-//const actionsInjector = require('inject-loader!@/store/authProvider')
+// const actionsInjector = require('inject-loader!@/store/authProvider')
 
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
@@ -50,7 +50,7 @@ describe.skip('authProvider Store', () => {
     authProvider.mutations.SET_AUTH_PROVIDERS(state, [{ id: 1 }])
     expect(state.authProviders.length).toBe(1)
   })
-  test('whole shit', async done => {
+  test('whole shit', async (done) => {
     const localVue = createLocalVue()
     localVue.use(Vuex)
     localVue.use(VueApollo)
@@ -61,7 +61,7 @@ describe.skip('authProvider Store', () => {
     })
     authProvider.app = localVue
 
-    //const store = new Vuex.Store(s)
+    // const store = new Vuex.Store(s)
 
     expect(store.state.authProviders.length).toBe(0)
 

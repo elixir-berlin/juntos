@@ -1,6 +1,5 @@
 <template>
   <v-app light>
- 
     <v-content>
       <v-container>
         <nuxt />
@@ -8,8 +7,9 @@
     </v-content>
 
     <v-footer app>
-      <span>footer
-       <v-switch label="Dark Mode" @change="toggleDarkMode()"/>
+      <span
+        >footer
+        <v-switch @change="toggleDarkMode()" label="Dark Mode" />
       </span>
     </v-footer>
   </v-app>

@@ -34,21 +34,20 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/vuetify'],
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify'
+  ],
   /*
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
     '@nuxtjs/apollo'
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
   /*
    ** Apollo module configuration
    ** See https://github.com/nuxt-community/apollo-module
@@ -58,7 +57,7 @@ export default {
       default: {
         httpEndpoint:
           'https://api.graph.cool/simple/v1/ck3q7tlf541280175q09v5uvh',
-        //browserHttpEndpoint: '/graphql-what',
+        // browserHttpEndpoint: '/graphql-what',
         tokenName: 'apollo-token-junto'
       }
     }

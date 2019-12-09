@@ -1,6 +1,7 @@
 import allAuthProviders from '@/apollo/queries/allAuthProviders.gql'
 
 export const state = () => {
+  // eslint-disable-next-line
   authProviders: []
 }
 
@@ -12,7 +13,7 @@ export const mutations = {
 
 export const actions = {
   async all({ commit }) {
-    let client = this.app.apolloProvider.defaultClient
+    const client = this.app.apolloProvider.defaultClient
 
     const query = {
       query: allAuthProviders
