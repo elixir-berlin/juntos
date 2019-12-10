@@ -1,9 +1,8 @@
 import allAuthProviders from '@/apollo/queries/allAuthProviders.gql'
 
-export const state = () => {
-  // eslint-disable-next-line
+export const state = () => ({
   authProviders: []
-}
+})
 
 export const mutations = {
   SET_AUTH_PROVIDERS(state, authProviders) {
