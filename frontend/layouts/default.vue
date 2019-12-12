@@ -18,7 +18,7 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch('authProvider/all')
+    this.$store.dispatch('authProvider/all', this.$apolloProvider.defaultClient)
   },
   methods: {
     toggleDarkMode() {

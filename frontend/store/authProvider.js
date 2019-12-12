@@ -11,13 +11,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async all({ commit }) {
-    const client = this.app.apolloProvider.defaultClient
-
+  async all({ commit }, apolloProvider) {
     const query = {
       query: allAuthProviders
     }
-    const response = await client.query(query)
+    const response = await apolloProvider.query(query)
     commit('SET_AUTH_PROVIDERS', response.data.allAuthProviders)
   }
 }
