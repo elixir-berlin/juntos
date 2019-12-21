@@ -11,7 +11,7 @@ TODO: Describe goals of the project
 ## Architecture
 
 API: [Phoenix Framework]() & [Absinthe GraphQL]()
-FE: [Vue.js]() & [NUXTJS]()
+FE: [Vue.js]() [Vuex]() & [NUXTJS]()
 
 
 ## Deployment
@@ -27,4 +27,5 @@ TODO: add license file
 [Phoenix Framework]: https://www.phoenixframework.org
 [Absinthe GraphQL]: https://github.com/absinthe-graphql/absinthe
 [Vue.js]: https://vuejs.org
+[Vuex]: https://vuex.vuejs.org
 [NUXTJS]: https://nuxtjs.org
