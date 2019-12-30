@@ -1,3 +1,4 @@
 #!/bin/sh
+export PORT=3000
 cd /opt/app/frontend
 exec npm run start
