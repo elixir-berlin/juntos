@@ -11,8 +11,6 @@ WORKDIR /app
 
 # Install hex package manager
 RUN mix local.hex --force
+RUN mix local.rebar --force
 
-# Compile the project
-RUN mix do compile
-
-CMD ["/app/entrypoint.sh"]
+CMD ["/app/entrypoint-dev.sh"]
