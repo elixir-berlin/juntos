@@ -28,6 +28,18 @@ services:
       - "4000:4000"
     depends_on:
       - db
+  proxy:
+    image: haproxy:2.1
+    container_name: junto-proxy
+    command: "haproxy -f /haproxy/haproxy-dev.cfg"
+    restart: always
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./etc/haproxy/:/haproxy
+    depends_on:
+      - frontend
+      - api
   db:
     image: postgres:9.6
     container_name: junto-db
