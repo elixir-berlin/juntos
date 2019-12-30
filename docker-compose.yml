@@ -5,6 +5,8 @@ services:
     build: 
       context: frontend/
     container_name: junto-frontend
+    volumes:
+      - ./frontend/:/src
     ports:
       - "3000:3000"
     command:
@@ -15,6 +17,8 @@ services:
     build:
       context: api/
     container_name: junto-api
+    volumes:
+      - ./api/:/app
     environment:
       # Variables to connect to our Postgres server
       PGUSER: postgres
