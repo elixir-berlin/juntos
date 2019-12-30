@@ -6,7 +6,7 @@ services:
       context: frontend/
     container_name: junto-frontend
     volumes:
-      - ./frontend/:/src
+      - ./frontend/:/app
     ports:
       - "3000:3000"
     command:
