@@ -2,16 +2,19 @@ version: '3'
 
 services:
   frontend:
-    build: ./frontend/
+    build: 
+      context: frontend/
     container_name: junto-frontend
-    restart: always
     ports:
       - "3000:3000"
     command:
       "npm run dev"
+    depends_on:
+      - api
   api:
     build:
       context: api/
+    container_name: junto-api
     environment:
       # Variables to connect to our Postgres server
       PGUSER: postgres
@@ -25,6 +28,7 @@ services:
       - db
   db:
     image: postgres:9.6
+    container_name: junto-db
     environment:
       # Set user/password for Postgres
       POSTGRES_USER: postgres
