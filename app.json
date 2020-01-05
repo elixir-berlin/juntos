@@ -1,0 +1,20 @@
+{
+  "name": "Junto",
+  "repository": "https://github.com/elixir-berlin/junto",
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "A secret key for verifying the integrity.",
+      "generator": "secret"
+    }
+  },
+  "stack": "container",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
