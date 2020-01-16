@@ -9,7 +9,7 @@ defmodule JuntoApiWeb.Schema do
   end
 
   query do
-    @desc "Get a list of :auth_providers"
+    @desc "Get a list of all :auth_providers"
     field :auth_providers, list_of(:auth_provider) do
       resolve(fn _parent, _args, _resolution ->
         {:ok, []}
