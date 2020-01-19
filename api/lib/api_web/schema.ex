@@ -2,10 +2,15 @@ defmodule JuntoApiWeb.Schema do
   use Absinthe.Schema
 
   object :auth_provider do
-    field(:auth_type, :string)
+    field(:auth_type, :auth_type)
     field(:client_id, :string)
     field(:scope, :string)
     field(:auth_url, :string)
+  end
+
+  enum :auth_type do
+    value(:github, as: :github, description: "Github")
+    value(:twitter, as: :twitter, description: "Twitter")
   end
 
   query do
