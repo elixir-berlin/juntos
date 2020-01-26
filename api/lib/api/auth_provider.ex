@@ -3,16 +3,16 @@ defmodule Api.AuthProvider do
     Enum.map(providers, &fetch_provider/1)
   end
 
-  defp fetch_provider({provider, details}) do
+  defp fetch_provider({provider, {provider_module, details}}) do
     %{
       auth_type: provider,
-      auth_url: Ueberauth.Strategy.Github.OAuth.client().authorize_url,
-      client_id: Ueberauth.Strategy.Github.OAuth.client().client_id,
+      auth_url: Module.concat(provider_module, OAuth).client().authorize_url,
+      client_id: Module.concat(provider_module, OAuth).client().client_id,
       scope: fetch_scope(details)
     }
   end
 
-  defp fetch_scope({_provider_module, [default_scope: scope]}) do
+  defp fetch_scope([default_scope: scope]) do
     scope
   end
 
