@@ -8,7 +8,15 @@ defmodule Api.AuthProvider do
       auth_type: provider,
       auth_url: Ueberauth.Strategy.Github.OAuth.client().authorize_url,
       client_id: Ueberauth.Strategy.Github.OAuth.client().client_id,
-      scope: ""
+      scope: fetch_scope(details)
     }
+  end
+
+  defp fetch_scope({_provider_module, [default_scope: scope]}) do
+    scope
+  end
+
+  defp fetch_scope(_) do
+    ""
   end
 end

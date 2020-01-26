@@ -7,5 +7,11 @@ defmodule Api.AuthProviderTest do
       providers = [%{auth_type: :github, client_id: "1", scope: "", auth_url: "https://github.com/login/oauth/authorize"}]
       assert Api.AuthProvider.list(config) == providers
     end
+
+    test "fetch github with default scope" do
+      config = [providers: [github: {Ueberauth.Strategy.Github, [default_scope: "user"]}]]
+      providers = [%{auth_type: :github, client_id: "1", scope: "user", auth_url: "https://github.com/login/oauth/authorize"}]
+      assert Api.AuthProvider.list(config) == providers
+    end
   end
 end
