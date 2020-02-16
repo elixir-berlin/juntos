@@ -12,7 +12,7 @@ defmodule Api.AuthProvider do
     }
   end
 
-  defp fetch_scope([default_scope: scope]) do
+  defp fetch_scope(default_scope: scope) do
     scope
   end
 

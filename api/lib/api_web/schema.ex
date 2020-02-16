@@ -14,7 +14,6 @@ defmodule JuntoApiWeb.Schema do
     value(:twitter, as: :twitter, description: "Twitter")
   end
 
-
   query do
     @desc "Get a list of all :auth_providers"
     field :auth_providers, list_of(:auth_provider) do
