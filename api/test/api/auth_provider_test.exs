@@ -40,7 +40,7 @@ defmodule Api.AuthProviderTest do
           auth_type: :twitter,
           client_id: "2",
           scope: "",
-          auth_url: "/oauth/authorize"
+          auth_url: "https://api.twitter.com/oauth/authorize"
         }
       ]
 

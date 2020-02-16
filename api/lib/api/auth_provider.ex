@@ -6,7 +6,7 @@ defmodule Api.AuthProvider do
   defp fetch_provider({provider, {provider_module, details}}) do
     %{
       auth_type: provider,
-      auth_url: Module.concat(provider_module, OAuth).client().authorize_url,
+      auth_url: auth_url(provider_module),
       client_id: Module.concat(provider_module, OAuth).client().client_id,
       scope: fetch_scope(details)
     }
@@ -18,5 +18,14 @@ defmodule Api.AuthProvider do
 
   defp fetch_scope(_) do
     ""
+  end
+
+  defp auth_url(Ueberauth.Strategy.Twitter = provider_module) do
+    client = Module.concat(provider_module, OAuth).client()
+    client.site() <> client.authorize_url()
+  end
+
+  defp auth_url(provider_module) do
+    Module.concat(provider_module, OAuth).client().authorize_url()
   end
 end
