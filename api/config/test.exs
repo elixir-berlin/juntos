@@ -16,3 +16,11 @@ config :api, JuntoApiWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: "1",
+  client_secret: "123"
+
+config :ueberauth, Ueberauth.Strategy.Twitter.OAuth,
+  client_id: "2",
+  client_secret: "321"
