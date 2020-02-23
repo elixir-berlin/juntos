@@ -4,7 +4,7 @@
       <h1>Events</h1>
       <ul>
         <li v-for="auth in authProvider.authProviders" :key="auth.id">
-          Login with {{ auth.type }}
+          Login with {{ auth.authType }}
         </li>
       </ul>
     </v-flex>

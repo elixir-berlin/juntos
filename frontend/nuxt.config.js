@@ -56,8 +56,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint:
-          'https://api.graph.cool/simple/v1/ck3q7tlf541280175q09v5uvh',
+        httpEndpoint: '/api/',
         // browserHttpEndpoint: '/graphql-what',
         tokenName: 'apollo-token-junto'
       }

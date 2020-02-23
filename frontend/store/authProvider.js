@@ -16,6 +16,6 @@ export const actions = {
       query: allAuthProviders
     }
     const response = await apolloProvider.query(query)
-    commit('SET_AUTH_PROVIDERS', response.data.allAuthProviders)
+    commit('SET_AUTH_PROVIDERS', response.data.authProviders)
   }
 }

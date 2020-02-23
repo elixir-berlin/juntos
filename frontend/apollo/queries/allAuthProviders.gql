@@ -1,7 +1,8 @@
 {
-  allAuthProviders {
-    id
-    clientID
-    type
+  authProviders {
+    clientId
+    scope
+    authUrl
+    authType
   }
 }
