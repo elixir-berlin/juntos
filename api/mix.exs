@@ -46,7 +46,9 @@ defmodule JuntoApi.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:absinthe_plug, "~> 1.4"}
+      {:absinthe_plug, "~> 1.4"},
+      {:ueberauth_github, "~> 0.7"},
+      {:ueberauth_twitter, "~> 0.3"}
     ]
   end
 
