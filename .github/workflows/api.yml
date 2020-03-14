@@ -1,0 +1,27 @@
+name: Junto API
+
+on: [push]
+
+env:
+  CI: true
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup elixir
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: 1.10.2
+        otp-version: 22.2
+    - name: Install Dependencies
+      run: |
+        cd api
+        mix deps.get
+    - name: Run Tests
+      run: |
+        cd api
+        mix test
