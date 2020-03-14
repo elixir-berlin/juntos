@@ -41,7 +41,7 @@ services:
       - frontend
       - api
   db:
-    image: postgres:9.6
+    image: postgres:9.6-alpine
     container_name: junto-db
     environment:
       # Set user/password for Postgres
