@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /opt/app/api/bin/api start
+PORT=4000 exec /opt/app/api/bin/api start
