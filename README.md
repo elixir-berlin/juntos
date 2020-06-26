@@ -1,20 +1,64 @@
 # Juntos
 
-To start your Phoenix server:
+> Build communities with people who share your interests.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Description
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+TODO: Describe goals of the project
 
-## Learn more
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Architecture
+
+Web: [Phoenix Framework]() & [Phoenix LiveView]()
+
+
+
+## Development
+
+For development, we recommend to use [docker-compose](https://docs.docker.com/compose/).
+
+First run `docker-compose up --build` and wait until containers are up.
+Juntos is reachable at [http://localhost:4000/](http://localhost:4000/)
+
+In case you want to running it as a single docker image:
+
+1) Build the combo docker image with
+
+```shell
+docker build -t juntos:dev .
+```
+
+2) Start container:
+
+```shell
+docker run --name juntos-dev -e PORT=3030 -p 3030:3030 -e DATABASE_URL="postgres://postgres:postgres@<YOUR LOCAL IP>:5432/postgres" juntos:dev
+# eg.
+docker run --name juntos-dev -e PORT=3030 -p 3030:3030 -e DATABASE_URL="postgres://postgres:postgres@192.168.0.12:5432/postgres" juntos:dev
+```
+
+3) Stop container
+
+```shell
+docker stop juntos-dev && docker container rm juntos-dev
+```
+
+Running postgres within a docker image:
+
+```shell
+docker run --rm --name pg-docker -d -p 5432:5432 postgres:9.6-alpine
+```
+
+## Deployment
+
+TODO: setup containerised deployment
+
+
+## License
+Released under the [MIT License](./LICENSE).
+TODO: add license file
+
+
+[Phoenix Framework]: https://www.phoenixframework.org
+[Phoenix LiveView]: https://github.com/phoenixframework/phoenix_live_view
+
