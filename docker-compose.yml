@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  juntos:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    container_name: juntos
+    volumes:
+      - ./:/app
+    environment:
+      # Variables to connect to our Postgres server
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: juntos_dev
+      PGPORT: 5432
+      PGHOST: db
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+  db:
+    image: postgres:10.13-alpine
+    container_name: juntos-db
+    environment:
+      # Set user/password for Postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      # Set a path where Postgres should store the data
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+# Define the volumes
+volumes:
+  pgdata:
