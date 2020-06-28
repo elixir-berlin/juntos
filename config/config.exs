@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :juntos,
-  ecto_repos: [Juntos.Repo]
+  ecto_repos: [Juntos.Repo],
+  generators: [binary_id: true]
 
 # Configures the endpoint
 config :juntos, JuntosWeb.Endpoint,
