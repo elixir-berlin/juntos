@@ -39,4 +39,4 @@ RUN apk add --update ncurses-libs && \
 COPY --from=build /build-src/_build/prod/rel/juntos /opt/app
 
 EXPOSE 4000
-ENTRYPOINT ["/build-src/_build/prod/rel/juntos", "forground"]
+ENTRYPOINT ["/opt/app/bin/juntos", "start"]
