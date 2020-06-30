@@ -10,7 +10,13 @@ defmodule Juntos.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test
+      ],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -47,6 +53,7 @@ defmodule Juntos.MixProject do
       {:plug_cowboy, "~> 2.0"},
       # test
       {:floki, ">= 0.0.0", only: :test},
+      {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},
       # dev
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
