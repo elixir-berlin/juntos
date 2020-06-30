@@ -1,4 +1,5 @@
 defmodule Juntos.Accounts.AuthorizationProviderEnum do
+  @moduledoc false
   use EctoEnum.Postgres,
     type: :authorization_provider,
     enums: [
