@@ -40,3 +40,11 @@ jobs:
       - name: Check Format
         run: |
           mix format --check-formatted
+      - name: Generate coverage
+        run: |
+          mix coveralls.json
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: cover/excoveralls.json
+          fail_ci_if_error: true
