@@ -22,3 +22,7 @@ config :juntos, JuntosWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: "test-github-client-id",
+  client_secret: "test-github-secret"

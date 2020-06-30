@@ -18,6 +18,9 @@ defmodule JuntosWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    get "/auth/:provider", AuthProviderController, :request
+    get "/auth/:provider/callback", AuthProviderController, :callback
   end
 
   # Other scopes may use custom stacks.
