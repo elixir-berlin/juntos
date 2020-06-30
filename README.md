@@ -5,8 +5,10 @@
 
 
 
-[![](https://github.com/elixir-berlin/juntos/workflows/Unit%20Test/badge.svg)](https://github.com/elixir-berlin/juntos/actions?query=workflow%3A%22Unit+Test%22+branch%3Amaster)
+[![](https://github.com/elixir-berlin/juntos/workflows/Unit%20Test/badge.svg)](https://github.com/elixir-berlin/juntos/actions?query=workflow%3A%22Unit+Test%22+branch%3Amaster) | 
+[![](https://github.com/elixir-berlin/juntos/workflows/Code%20Quality/badge.svg)](https://github.com/elixir-berlin/juntos/actions?query=workflow%3A%22Code+Quality%22+branch%3Amaster) | 
  [![codecov](https://codecov.io/gh/elixir-berlin/juntos/branch/master/graph/badge.svg)](https://codecov.io/gh/elixir-berlin/juntos)
+
 
 
 ## Description
