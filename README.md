@@ -3,6 +3,12 @@
 > Build communities with people who share your interests.
 
 
+
+
+[![](https://github.com/elixir-berlin/juntos/workflows/Unit%20Test/badge.svg)](https://github.com/elixir-berlin/juntos/actions?query=workflow%3A%22Unit+Test%22+branch%3Amaster)
+ [![codecov](https://codecov.io/gh/elixir-berlin/juntos/branch/master/graph/badge.svg)](https://codecov.io/gh/elixir-berlin/juntos)
+
+
 ## Description
 
 TODO: Describe goals of the project
