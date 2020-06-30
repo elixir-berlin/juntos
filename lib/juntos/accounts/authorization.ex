@@ -1,4 +1,5 @@
 defmodule Juntos.Accounts.Authorization do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
   alias Juntos.Accounts.AuthorizationProviderEnum

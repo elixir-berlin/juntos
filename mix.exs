@@ -46,6 +46,7 @@ defmodule Juntos.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:ecto_enum, "~> 1.4"},
+      {:token_operator, "~> 0.2.1"},
       # test
       {:floki, ">= 0.0.0", only: :test},
       # dev
