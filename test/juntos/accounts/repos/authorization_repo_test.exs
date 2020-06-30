@@ -32,6 +32,13 @@ defmodule Juntos.Accounts.AuthorizationRepoTest do
       assert auth.uid == "123"
       assert auth.token == "token"
     end
+
+    test "attemps to create duplicate records" do
+      params = %{provider: :github, uid: "123", token: "token"}
+      assert {:ok, %Authorization{} = auth1} = AuthorizationRepo.create(params)
+      assert {:error, changeset} = AuthorizationRepo.create(params)
+      assert errors_on(changeset) == %{provider_uid: ["has already been taken"]}
+    end
   end
 
   describe "get_by/1" do

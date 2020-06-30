@@ -37,5 +37,6 @@ defmodule Juntos.Accounts.Authorization do
       :name
     ])
     |> validate_required([:uid, :provider, :token])
+    |> unique_constraint(:provider_uid, name: :account_authorizations_provider_uid_index)
   end
 end
