@@ -1,0 +1,8 @@
+<%= if @live_action in [:new] do %>
+  <%= live_component @socket, JuntosWeb.UserLive.FormComponent,
+    id:  :new,
+    action: @live_action,
+    user: @user,
+    authorizaion: @authorizaion,
+    return_to: Routes.page_path(@socket, :index) %>
+<% end %>

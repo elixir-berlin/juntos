@@ -27,6 +27,7 @@ defmodule Juntos.Accounts.AuthorizationRepo do
     Authorization
     |> TokenOperator.maybe(opts, :uid, &by_uid/2)
     |> TokenOperator.maybe(opts, :provider, &by_provider/2)
+    |> TokenOperator.maybe(opts, :id, &by_id/2)
     |> Repo.one()
   end
 
@@ -36,5 +37,9 @@ defmodule Juntos.Accounts.AuthorizationRepo do
 
   defp by_provider(query, %{provider: provider}) do
     from(a in query, where: a.provider == ^provider)
+  end
+
+  defp by_id(query, %{id: id}) do
+    from(a in query, where: a.id == ^id)
   end
 end

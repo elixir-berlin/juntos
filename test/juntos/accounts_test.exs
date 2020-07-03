@@ -126,4 +126,51 @@ defmodule Juntos.AccountsTest do
       uid: 1000
     }
   end
+
+  describe "users" do
+    alias Juntos.Accounts.User
+    alias Juntos.Accounts
+
+    @valid_attrs %{avatar_url: "some avatar_url", email: "some@email", name: "some name", username: "some username"}
+    @invalid_attrs %{avatar_url: nil, email: nil, name: nil, username: nil}
+
+    def user_fixture(attrs \\ %{}) do
+      {:ok, user} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_user()
+
+      user
+    end
+
+    test "create_user/1 with valid data creates a user" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
+      assert user.avatar_url == "some avatar_url"
+      assert user.email == "some@email"
+      assert user.name == "some name"
+      assert user.username == "some username"
+    end
+
+    test "create_user/1 with valid data creates a user with same username" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
+      assert {:error, changeset} = Accounts.create_user(Map.put(@valid_attrs, :email, "foo@bar"))
+      assert errors_on(changeset) == %{username: ["has already been taken"]}
+    end
+
+    test "create_user/1 with valid data creates a user with same email" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
+      assert {:error, changeset} = Accounts.create_user(Map.put(@valid_attrs, :username, "foobar"))
+      assert errors_on(changeset) == %{email: ["has already been taken"]}
+    end
+
+
+    test "create_user/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
+    end
+
+    test "change_user/1 returns a user changeset" do
+      user = user_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_user(user)
+    end
+  end
 end

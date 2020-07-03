@@ -21,6 +21,8 @@ defmodule JuntosWeb.Router do
 
     get "/auth/:provider", AuthProviderController, :request
     get "/auth/:provider/callback", AuthProviderController, :callback
+
+    live "/users/new", UserLive.Registeration, :new
   end
 
   # Other scopes may use custom stacks.
