@@ -18,15 +18,6 @@ defmodule JuntosWeb.ErrorHelpers do
   end
 
   @doc """
-  Generates tag for inlined form input errors immediately without user interaction
-  """
-  def error_tag_immediate(form, field) do
-    Enum.map(Keyword.get_values(form.errors, field), fn error ->
-      content_tag(:span, translate_error(error), class: "invalid-feedback")
-    end)
-  end
-
-  @doc """
   Translates an error message using gettext.
   """
   def translate_error({msg, opts}) do
