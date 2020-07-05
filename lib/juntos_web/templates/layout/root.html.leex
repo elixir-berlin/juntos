@@ -14,6 +14,9 @@
       <section class="container">
         <nav role="navigation">
           <ul>
+            <%= unless @current_user do %>
+              <li><a href="/auth/github">Login</a></li>
+            <% end %>
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
