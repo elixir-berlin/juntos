@@ -131,7 +131,12 @@ defmodule Juntos.AccountsTest do
     alias Juntos.Accounts.User
     alias Juntos.Accounts
 
-    @valid_attrs %{avatar_url: "some avatar_url", email: "some@email", name: "some name", username: "some username"}
+    @valid_attrs %{
+      avatar_url: "some avatar_url",
+      email: "some@email",
+      name: "some name",
+      username: "some username"
+    }
     @invalid_attrs %{avatar_url: nil, email: nil, name: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -159,10 +164,12 @@ defmodule Juntos.AccountsTest do
 
     test "create_user/1 with valid data creates a user with same email" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert {:error, changeset} = Accounts.create_user(Map.put(@valid_attrs, :username, "foobar"))
+
+      assert {:error, changeset} =
+               Accounts.create_user(Map.put(@valid_attrs, :username, "foobar"))
+
       assert errors_on(changeset) == %{email: ["has already been taken"]}
     end
-
 
     test "create_user/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)

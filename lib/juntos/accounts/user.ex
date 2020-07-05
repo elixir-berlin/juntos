@@ -1,4 +1,5 @@
 defmodule Juntos.Accounts.User do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -24,7 +25,6 @@ defmodule Juntos.Accounts.User do
     |> lazy_unsafe_validate_unique(:email, Juntos.Repo)
     |> unique_constraint(:email, name: :account_users_email_index)
     |> unique_constraint(:username, name: :account_users_username_index)
-
   end
 
   defp lazy_unsafe_validate_unique(changeset, field, repo, opts \\ []) do
