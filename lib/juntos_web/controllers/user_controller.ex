@@ -21,7 +21,9 @@ defmodule JuntosWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
-      {:ok, _user} ->
+      {:ok, user} ->
+        Accounts.assign_authorization_to_user(conn.assigns.authorization, user)
+
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: Routes.page_path(conn, :index))
@@ -37,9 +39,15 @@ defmodule JuntosWeb.UserController do
 
   defp fetch_authorization(conn, _opt) do
     with auth_id when not is_nil(auth_id) <- get_session(conn, :authorization_id),
-         authorization when not is_nil(authorization) <- get_authorization(auth_id) do
+         authorization when not is_nil(authorization) <- get_authorization(auth_id),
+         {:is_used, nil} <- {:is_used, authorization.user_id} do
       assign(conn, :authorization, authorization)
     else
+      {:is_used, _} ->
+        conn
+        |> redirect(to: "/auth/error?error=authorization_already_used")
+        |> halt
+
       _ ->
         conn
         |> redirect(to: "/auth/error")

@@ -77,6 +77,23 @@ defmodule JuntosWeb.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :new))
       assert redirected_to(conn) =~ "/auth/error"
     end
+
+    test "redirects to /auth/error when authorization is already assigned to a user", %{
+      conn: conn,
+      authorization: authorization
+    } do
+      {:ok, user} =
+        Accounts.create_user(%{email: "email@me.com", username: "username", name: "name"})
+
+      {:ok, authorization} = Accounts.assign_authorization_to_user(authorization, user)
+
+      conn =
+        conn
+        |> put_auth_session(authorization)
+        |> get(Routes.user_path(conn, :new))
+
+      assert redirected_to(conn) =~ "/auth/error?error=authorization_already_used"
+    end
   end
 
   describe "create user" do
@@ -90,12 +107,31 @@ defmodule JuntosWeb.UserControllerTest do
 
       assert html_response(conn, 302)
 
-      assert Accounts.UserRepo.get_by(email: @create_attrs[:email])
+      assert user = Accounts.UserRepo.get_by(email: @create_attrs[:email])
+      authorization = Juntos.Repo.reload!(authorization)
+      assert authorization.user_id == user.id
     end
 
     test "redirects to /auth/error when authorization session is not set", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: %{})
       assert redirected_to(conn) =~ "/auth/error"
+    end
+
+    test "redirects to /auth/error when authorization is already assigned to a user", %{
+      conn: conn,
+      authorization: authorization
+    } do
+      {:ok, user} =
+        Accounts.create_user(%{email: "email@me.com", username: "username", name: "name"})
+
+      {:ok, authorization} = Accounts.assign_authorization_to_user(authorization, user)
+
+      conn =
+        conn
+        |> put_auth_session(authorization)
+        |> post(Routes.user_path(conn, :create), user: @create_attrs)
+
+      assert redirected_to(conn) =~ "/auth/error?error=authorization_already_used"
     end
 
     test "renders errors when data is invalid", %{conn: conn, authorization: authorization} do

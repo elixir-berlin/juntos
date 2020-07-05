@@ -18,6 +18,10 @@ defmodule Juntos.Accounts do
     |> AuthorizationRepo.create()
   end
 
+  def assign_authorization_to_user(authorization, user) do
+    AuthorizationRepo.assign_user(authorization, user)
+  end
+
   defp export_authorization_struct(%{provider: :github} = ueberauth) do
     altenative_emails =
       (ueberauth.extra.raw_info.user["emails"] || [])

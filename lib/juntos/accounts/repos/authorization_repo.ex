@@ -31,6 +31,15 @@ defmodule Juntos.Accounts.AuthorizationRepo do
     |> Repo.one()
   end
 
+  @doc """
+  Assign a user to authorization record.
+  """
+  def assign_user(authorization, user) do
+    authorization
+    |> Authorization.assign_user_changeset(user)
+    |> Repo.update()
+  end
+
   defp by_uid(query, %{uid: uid}) do
     from(a in query, where: a.uid == ^uid)
   end
