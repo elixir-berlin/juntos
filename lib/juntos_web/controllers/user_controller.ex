@@ -23,10 +23,7 @@ defmodule JuntosWeb.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Accounts.assign_authorization_to_user(conn.assigns.authorization, user)
-
-        conn
-        |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.page_path(conn, :index))
+        JuntosWeb.UserAuth.login_user(conn, user)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

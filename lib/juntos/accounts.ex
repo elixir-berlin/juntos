@@ -4,7 +4,7 @@ defmodule Juntos.Accounts do
   """
 
   alias Juntos.Repo
-  alias Juntos.Accounts.{AuthorizationRepo, Authorization}
+  alias Juntos.Accounts.{AuthorizationRepo, Authorization, UserToken}
 
   def get_authorization_by(opts) do
     AuthorizationRepo.get_by(opts)
@@ -73,5 +73,22 @@ defmodule Juntos.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  @doc """
+  Generates a session token.
+  """
+  def generate_user_session_token(user) do
+    {token, user_token} = UserToken.build_session_token(user)
+    Repo.insert!(user_token)
+    token
+  end
+
+  @doc """
+  Gets the user with the given signed token.
+  """
+  def get_user_by_session_token(token) do
+    {:ok, query} = UserToken.verify_session_token_query(token)
+    Repo.one(query)
   end
 end

@@ -24,11 +24,12 @@ defmodule JuntosWeb.AuthProviderController do
         authorization =
           Accounts.get_authorization_by(
             uid: changeset.data.uid,
-            provider: changeset.data.provider
+            provider: changeset.data.provider,
+            include: :user
           )
 
         if authorization.user_id do
-          throw(:login_user)
+          JuntosWeb.UserAuth.login_user(conn, authorization.user)
         else
           redirect_new_user(conn, authorization)
         end

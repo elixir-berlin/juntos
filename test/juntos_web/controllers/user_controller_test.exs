@@ -105,11 +105,15 @@ defmodule JuntosWeb.UserControllerTest do
         |> put_auth_session(authorization)
         |> post(Routes.user_path(conn, :create), user: @create_attrs)
 
-      assert html_response(conn, 302)
+      assert redirected_to(conn) =~ "/"
 
       assert user = Accounts.UserRepo.get_by(email: @create_attrs[:email])
       authorization = Juntos.Repo.reload!(authorization)
       assert authorization.user_id == user.id
+
+      assert token = get_session(conn, :user_token)
+      assert get_session(conn, :live_socket_id) == "users_sessions:#{Base.url_encode64(token)}"
+      assert Accounts.get_user_by_session_token(token)
     end
 
     test "redirects to /auth/error when authorization session is not set", %{conn: conn} do
