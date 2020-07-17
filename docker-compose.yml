@@ -8,6 +8,8 @@ services:
     container_name: juntos
     volumes:
       - ./:/app
+    env_file:
+      - '.env'
     environment:
       # Variables to connect to our Postgres server
       PGUSER: postgres

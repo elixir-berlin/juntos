@@ -1,0 +1,47 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+
+
+  <%= if @changeset.changes[:avatar_url] do %>
+    <p>
+    <img src="<%= @changeset.changes.avatar_url %>" height="100px" />
+    </p>
+  <% end %>
+  <%= if @changeset.changes[:name] do %>
+    <p>
+    Thanks for signing up <%= @changeset.changes.name %>!
+    </p>
+  <% end %>
+
+  <p>Last step to create an account:  </p>
+
+
+
+  <%= label f, :username %>
+  <%= text_input f, :username %>
+  <%= error_tag f, :username %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+
+  <%= label f, :email %>
+  <%= text_input f, :email %>
+  <%= error_tag f, :email %>
+
+  <%= label f, :avatar_url %>
+  <%= text_input f, :avatar_url %>
+  <%= error_tag f, :avatar_url %>
+
+
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

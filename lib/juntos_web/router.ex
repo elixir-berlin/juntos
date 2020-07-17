@@ -1,6 +1,8 @@
 defmodule JuntosWeb.Router do
   use JuntosWeb, :router
 
+  import JuntosWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule JuntosWeb.Router do
     plug :put_root_layout, {JuntosWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -18,6 +21,11 @@ defmodule JuntosWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    get "/auth/:provider", AuthProviderController, :request
+    get "/auth/:provider/callback", AuthProviderController, :callback
+
+    resources "/users", UserController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.

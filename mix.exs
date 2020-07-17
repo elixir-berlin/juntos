@@ -51,6 +51,10 @@ defmodule Juntos.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:ecto_enum, "~> 1.4"},
+      {:ueberauth, "~> 0.6.3"},
+      {:ueberauth_github, "~> 0.8.0"},
+      {:token_operator, "~> 0.2.1"},
       # test
       {:floki, ">= 0.0.0", only: :test},
       {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},

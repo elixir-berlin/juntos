@@ -3,8 +3,11 @@ defmodule JuntosWeb.PageLive do
   use JuntosWeb, :live_view
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, query: "", results: %{})}
+  def mount(_params, session, socket) do
+    user =
+      session["user_token"] && Juntos.Accounts.get_user_by_session_token(session["user_token"])
+
+    {:ok, assign(socket, query: "", results: %{}, current_user: user)}
   end
 
   @impl true
