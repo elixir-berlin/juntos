@@ -9,6 +9,8 @@ RUN apk add --update \
     nodejs \
     npm
 
+RUN npm install npm@latest -g
+
 RUN mix local.hex --force && \
     mix local.rebar --force
 
