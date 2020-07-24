@@ -43,6 +43,7 @@ jobs:
       - name: Generate coverage
         run: |
           mix coveralls.json
+          mix coveralls.github
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
