@@ -4,6 +4,8 @@ FROM elixir:1.10.3
 RUN apt-get -qqq update && \
     apt-get install -qqq -y postgresql-client inotify-tools nodejs npm
 
+RUN npm install -g npm@latest
+
 # Create app directory and copy the Elixir project into it
 RUN mkdir /app
 WORKDIR /app
