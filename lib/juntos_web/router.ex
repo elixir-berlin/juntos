@@ -28,6 +28,12 @@ defmodule JuntosWeb.Router do
     resources "/users", UserController, only: [:new, :create]
   end
 
+  scope "/", JuntosWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live "/groups/new", GroupLive.New, :new
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", JuntosWeb do
   #   pipe_through :api
@@ -47,5 +53,11 @@ defmodule JuntosWeb.Router do
       pipe_through :browser
       live_dashboard "/dashboard", metrics: JuntosWeb.Telemetry
     end
+  end
+
+  scope "/", JuntosWeb do
+    pipe_through :browser
+
+    live "/*path", GroupLive.Show, :show
   end
 end

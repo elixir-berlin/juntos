@@ -4,7 +4,7 @@ defmodule JuntosWeb.UserAuth do
   import Phoenix.Controller
 
   alias Juntos.Accounts
-  alias JuntosWeb.Router.Helpers, as: Router
+  alias JuntosWeb.Router.Helpers, as: Routes
 
   @max_age 60 * 60 * 24 * 60
   @remember_me_cookie "user_remember_me"
@@ -32,7 +32,7 @@ defmodule JuntosWeb.UserAuth do
     |> put_session(:user_token, token)
     |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
     |> maybe_write_remember_me_cookie(token, params)
-    |> redirect(to: user_return_to || Router.page_path(conn, :index))
+    |> redirect(to: user_return_to || Routes.page_path(conn, :index))
   end
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
@@ -87,4 +87,27 @@ defmodule JuntosWeb.UserAuth do
       end
     end
   end
+
+  @doc """
+  Used for routes that require the user to be authenticated.
+  If you want to enforce the user e-mail is confirmed before
+  they use the application at all, here would be a good place.
+  """
+  def require_authenticated_user(conn, _opts) do
+    if conn.assigns[:current_user] do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must login to access this page.")
+      |> maybe_store_return_to()
+      |> redirect(to: Routes.page_path(conn, :index))
+      |> halt()
+    end
+  end
+
+  defp maybe_store_return_to(%{method: "GET", request_path: request_path} = conn) do
+    put_session(conn, :user_return_to, request_path)
+  end
+
+  defp maybe_store_return_to(conn), do: conn
 end
