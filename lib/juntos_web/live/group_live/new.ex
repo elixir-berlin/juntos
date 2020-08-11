@@ -1,4 +1,7 @@
 defmodule JuntosWeb.GroupLive.New do
+  @moduledoc """
+  Save a new group
+  """
   use JuntosWeb, :live_view
 
   alias Juntos.Meetups

@@ -1,4 +1,5 @@
 defmodule JuntosWeb.GroupLive.Show do
+  @moduledoc false
   use JuntosWeb, :live_view
 
   alias Juntos.Meetups

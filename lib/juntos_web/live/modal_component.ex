@@ -1,4 +1,5 @@
 defmodule JuntosWeb.ModalComponent do
+  @moduledoc false
   use JuntosWeb, :live_component
 
   @impl true

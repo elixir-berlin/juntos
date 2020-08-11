@@ -1,4 +1,5 @@
 defmodule Juntos.Meetups.Group do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
 
