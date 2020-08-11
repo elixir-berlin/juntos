@@ -64,8 +64,7 @@ defmodule Juntos.MeetupsTest do
         ends_at: "2010-04-17T14:00:00Z",
         starts_at: ~N[2010-04-17 14:00:00],
         title: "some title",
-        group: group,
-        slug_id: 1
+        group: group
       }
 
       assert {:ok, %Event{} = event} = Meetups.create_event(valid_attrs)
@@ -73,6 +72,33 @@ defmodule Juntos.MeetupsTest do
       assert event.slug_id == 1
       assert event.starts_at == ~N[2010-04-17 14:00:00]
       assert event.title == "some title"
+    end
+
+    test "create_event/1 stores slug_id with different values" do
+      user = Juntos.AccountsFixtures.user_fixture()
+      group = Juntos.MeetupsFixtures.group_fixture(%{creator_id: user.id})
+
+      valid_attrs = %{
+        ends_at: "2010-04-17T14:00:00Z",
+        starts_at: ~N[2010-04-17 14:00:00],
+        title: "some title",
+        group: group
+      }
+
+      1..10 |> Task.async_stream(fn _ -> assert {:ok, _} = Meetups.create_event(valid_attrs) end)
+    end
+
+    test "create_event/1 with invalid data shouldn't increase the group counter" do
+      user = Juntos.AccountsFixtures.user_fixture()
+      group = Juntos.MeetupsFixtures.group_fixture(%{creator_id: user.id})
+
+      valid_attrs = %{
+        title: "some title",
+        group: group
+      }
+
+      assert {:error, _} = Meetups.create_event(valid_attrs)
+      assert Juntos.Repo.reload!(group).event_slug_counter == group.event_slug_counter
     end
   end
 end

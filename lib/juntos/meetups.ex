@@ -69,6 +69,8 @@ defmodule Juntos.Meetups do
   @doc """
   Creates a event.
 
+  This function also increases the related groups event slug counter in a transaction
+
   ## Examples
 
       iex> create_event(%{field: value})
@@ -79,8 +81,16 @@ defmodule Juntos.Meetups do
 
   """
   def create_event(attrs \\ %{}) do
-    %Event{}
-    |> Event.changeset(attrs)
-    |> Repo.insert()
+    Repo.transaction(fn ->
+      slug_id = GroupRepo.increase_event_slug_counter(attrs.group)
+      attrs = Map.put(attrs, :slug_id, slug_id)
+
+      event_ch = Event.changeset(%Event{}, attrs)
+
+      case Repo.insert(event_ch) do
+        {:ok, event} -> event
+        {:error, changeset} -> Repo.rollback(changeset)
+      end
+    end)
   end
 end
