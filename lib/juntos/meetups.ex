@@ -13,7 +13,7 @@ defmodule Juntos.Meetups do
 
   ## Example
 
-      iex> get_by(slug: "slug")
+      iex> get_group_by(slug: "slug")
       %Group{...}
   """
   def get_group_by(opts) do
@@ -64,7 +64,7 @@ defmodule Juntos.Meetups do
     Group.changeset(group, attrs)
   end
 
-  alias Juntos.Meetups.Event
+  alias Juntos.Meetups.{Event, EventRepo}
 
   @doc """
   Creates a event.
@@ -92,5 +92,17 @@ defmodule Juntos.Meetups do
         {:error, changeset} -> Repo.rollback(changeset)
       end
     end)
+  end
+
+  @doc """
+  Gets a single event
+
+  ## Example
+
+      iex> get_event_by(slug_id: "id", group_id: "....")
+      %Event{...}
+  """
+  def get_event_by(opts) do
+    EventRepo.get_by(opts)
   end
 end
