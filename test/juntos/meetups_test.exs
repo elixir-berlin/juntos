@@ -52,4 +52,27 @@ defmodule Juntos.MeetupsTest do
     user = user_fixture()
     %{user: user}
   end
+
+  describe "events" do
+    alias Juntos.Meetups.Event
+
+    test "create_event/1 with valid data creates a event" do
+      user = Juntos.AccountsFixtures.user_fixture()
+      group = Juntos.MeetupsFixtures.group_fixture(%{creator_id: user.id})
+
+      valid_attrs = %{
+        ends_at: "2010-04-17T14:00:00Z",
+        starts_at: ~N[2010-04-17 14:00:00],
+        title: "some title",
+        group: group,
+        slug_id: 1
+      }
+
+      assert {:ok, %Event{} = event} = Meetups.create_event(valid_attrs)
+      assert event.ends_at == DateTime.from_naive!(~N[2010-04-17T14:00:00Z], "Etc/UTC")
+      assert event.slug_id == 1
+      assert event.starts_at == ~N[2010-04-17 14:00:00]
+      assert event.title == "some title"
+    end
+  end
 end

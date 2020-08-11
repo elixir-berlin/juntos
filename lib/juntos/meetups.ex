@@ -63,4 +63,24 @@ defmodule Juntos.Meetups do
   def change_group(%Group{} = group, attrs \\ %{}) do
     Group.changeset(group, attrs)
   end
+
+  alias Juntos.Meetups.Event
+
+  @doc """
+  Creates a event.
+
+  ## Examples
+
+      iex> create_event(%{field: value})
+      {:ok, %Event{}}
+
+      iex> create_event(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_event(attrs \\ %{}) do
+    %Event{}
+    |> Event.changeset(attrs)
+    |> Repo.insert()
+  end
 end
