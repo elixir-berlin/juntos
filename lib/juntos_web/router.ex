@@ -54,4 +54,10 @@ defmodule JuntosWeb.Router do
       live_dashboard "/dashboard", metrics: JuntosWeb.Telemetry
     end
   end
+
+  scope "/", JuntosWeb do
+    pipe_through :browser
+
+    live "/*path", GroupLive.Show, :show
+  end
 end
