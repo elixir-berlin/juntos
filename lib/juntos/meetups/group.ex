@@ -8,6 +8,7 @@ defmodule Juntos.Meetups.Group do
   schema "meetup_groups" do
     field :name, :string
     field :slug, :string
+    field :event_slug_counter, :integer, default: 0
     belongs_to :creator, Juntos.Accounts.User
 
     timestamps()

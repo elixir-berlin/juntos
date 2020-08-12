@@ -13,7 +13,7 @@ defmodule Juntos.Meetups do
 
   ## Example
 
-      iex> get_by(slug: "slug")
+      iex> get_group_by(slug: "slug")
       %Group{...}
   """
   def get_group_by(opts) do
@@ -62,5 +62,47 @@ defmodule Juntos.Meetups do
   """
   def change_group(%Group{} = group, attrs \\ %{}) do
     Group.changeset(group, attrs)
+  end
+
+  alias Juntos.Meetups.{Event, EventRepo}
+
+  @doc """
+  Creates a event.
+
+  This function also increases the related groups event slug counter in a transaction
+
+  ## Examples
+
+      iex> create_event(%{field: value})
+      {:ok, %Event{}}
+
+      iex> create_event(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_event(attrs \\ %{}) do
+    Repo.transaction(fn ->
+      slug_id = GroupRepo.increase_event_slug_counter(attrs.group)
+      attrs = Map.put(attrs, :slug_id, slug_id)
+
+      event_ch = Event.changeset(%Event{}, attrs)
+
+      case Repo.insert(event_ch) do
+        {:ok, event} -> event
+        {:error, changeset} -> Repo.rollback(changeset)
+      end
+    end)
+  end
+
+  @doc """
+  Gets a single event
+
+  ## Example
+
+      iex> get_event_by(slug_id: "id", group_id: "....")
+      %Event{...}
+  """
+  def get_event_by(opts) do
+    EventRepo.get_by(opts)
   end
 end

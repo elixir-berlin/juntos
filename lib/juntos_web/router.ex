@@ -58,6 +58,7 @@ defmodule JuntosWeb.Router do
   scope "/", JuntosWeb do
     pipe_through :browser
 
+    live "/:group_slug/:slug_id", EventLive.Show, :show
     live "/*path", GroupLive.Show, :show
   end
 end
