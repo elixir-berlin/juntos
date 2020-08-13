@@ -5,7 +5,7 @@ defmodule Juntos.Accounts.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "account_users" do
+  schema "users" do
     field :avatar_url, :string
     field :email, :string
     field :name, :string
@@ -23,8 +23,8 @@ defmodule Juntos.Accounts.User do
     |> validate_format(:email, ~r/@/)
     |> lazy_unsafe_validate_unique(:username, Juntos.Repo)
     |> lazy_unsafe_validate_unique(:email, Juntos.Repo)
-    |> unique_constraint(:email, name: :account_users_email_index)
-    |> unique_constraint(:username, name: :account_users_username_index)
+    |> unique_constraint(:email, name: :users_email_index)
+    |> unique_constraint(:username, name: :users_username_index)
   end
 
   defp lazy_unsafe_validate_unique(changeset, field, repo, opts \\ []) do

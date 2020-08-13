@@ -9,8 +9,7 @@ defmodule Juntos.Repo.Migrations.CreateGroups do
       add :name, :string, null: false
       add :slug, :citext, null: false
 
-      add :creator_id, references(:account_users, on_delete: :nothing, type: :binary_id),
-        null: false
+      add :creator_id, references(:users, on_delete: :nothing, type: :binary_id), null: false
 
       timestamps()
     end
