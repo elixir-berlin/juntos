@@ -23,3 +23,15 @@
   </li>
 
 </ul>
+
+
+<%= if @attending do %>
+  You are attending &#x1f973;!
+<% else %>
+<%= _f = form_for @changeset, "#",
+  id: "rsvp-form",
+  phx_submit: "attend" %>
+
+
+<%= submit "RSVP", phx_disable_with: "RSVP..." %>
+<% end %>
