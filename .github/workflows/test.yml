@@ -43,6 +43,11 @@ jobs:
       - name: Generate coverage
         run: |
           mix coveralls.json
+      - name: credo
+        uses: red-shirts/reviewdog-action-credo@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
