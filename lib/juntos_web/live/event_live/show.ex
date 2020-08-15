@@ -42,6 +42,6 @@ defmodule JuntosWeb.EventLive.Show do
   defp page_title(:show), do: "Show Event"
 
   defp is_attending?(event, user) do
-    Enum.any?(event.attendees, &(&1.user_id == user.id))
+    user && Enum.any?(event.attendees, &(&1.user_id == user.id))
   end
 end

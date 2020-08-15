@@ -5,6 +5,8 @@ defmodule JuntosWeb.EventLiveTest do
   import Juntos.AccountsFixtures
   import Juntos.MeetupsFixtures
 
+  alias Juntos.Meetups
+
   defp create_event(_) do
     user = user_fixture()
     group = group_fixture(%{creator_id: user.id})
@@ -16,6 +18,20 @@ defmodule JuntosWeb.EventLiveTest do
     setup [:create_event]
 
     test "displays event", %{conn: conn, event: event, group: group} do
+      {:ok, _show_live, html} =
+        live(conn, Routes.event_show_path(conn, :show, group.slug, event.slug_id))
+
+      assert html =~ event.title
+    end
+
+    test "displays event for guest while there are some attendees", %{
+      conn: conn,
+      event: event,
+      group: group
+    } do
+      attendee = user_fixture()
+      Meetups.attend_event(event, attendee)
+
       {:ok, _show_live, html} =
         live(conn, Routes.event_show_path(conn, :show, group.slug, event.slug_id))
 
@@ -41,7 +57,7 @@ defmodule JuntosWeb.EventLiveTest do
     test "attemps to attend an already attending event", %{conn: conn, event: event, group: group} do
       attendee = user_fixture()
 
-      Juntos.Meetups.attend_event(event, attendee)
+      Meetups.attend_event(event, attendee)
 
       conn = login_user(conn, attendee)
 
