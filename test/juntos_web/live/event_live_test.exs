@@ -68,5 +68,19 @@ defmodule JuntosWeb.EventLiveTest do
 
       assert html =~ "You are attending"
     end
+
+    test "attends event as guest cause redirection to /oauth/github", %{
+      conn: conn,
+      event: event,
+      group: group
+    } do
+      {:ok, show_live, _html} =
+        live(conn, Routes.event_show_path(conn, :show, group.slug, event.slug_id))
+
+      assert {:error, {:live_redirect, %{kind: :replace, to: "/auth/github"}}} =
+               show_live
+               |> form("#rsvp-form")
+               |> render_submit()
+    end
   end
 end
