@@ -1,29 +1,14 @@
 name: Code Quality
 
-on: [push]
+on: [pull_request]
 
 env:
   CI: true
   MIX_ENV: test
 
 jobs:
-  build:
-
+  code-quality:
     runs-on: ubuntu-latest
-
-    services:
-      db:
-        image: postgres:10.13-alpine
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup elixir
@@ -31,6 +16,11 @@ jobs:
         with:
           elixir-version: 1.10.3
           otp-version: 22.2
+      - name: Download reviewdog
+        run: |
+          wget -q https://github.com/reviewdog/reviewdog/releases/download/v0.10.2/reviewdog_0.10.2_Linux_x86_64.tar.gz
+          sha256sum reviewdog_0.10.2_Linux_x86_64.tar.gz | grep b8f2d5a1d81d80c7bb33ee0050a3c8acda4e670d0a27af80a086207577afd832
+          tar xzf reviewdog_0.10.2_Linux_x86_64.tar.gz
       - name: Install Dependencies
         run: |
           mix deps.get
@@ -39,4 +29,6 @@ jobs:
           mix format --check-formatted
       - name: Credo check
         run: |
-          mix credo
+          export REVIEWDOG_GITHUB_API_TOKEN=${{ secrets.github_token }}
+          mix credo suggest --strict --format=flycheck \
+          | ./reviewdog -efm="%f:%l:%c: %t: %m" -efm="%f:%l: %t: %m" -name="credo" -reporter="github-pr-review" -level="error"
