@@ -1,5 +1,3 @@
-ARG ALPINE_VERSION=3.10
-
 # Build image
 FROM elixir:1.10.4-alpine AS build
 
