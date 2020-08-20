@@ -23,6 +23,7 @@ defmodule JuntosWeb.EventLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:group_slug, group_slug)
      |> assign(:changeset, changeset)
      |> assign(:attending, is_attending?(event, socket.assigns.current_user))
      |> assign(:event, event)}
@@ -30,7 +31,20 @@ defmodule JuntosWeb.EventLive.Show do
 
   @impl true
   def handle_event("attend", _params, %{assigns: %{current_user: nil}} = socket) do
-    {:noreply, push_redirect(socket, to: "/auth/github", replace: true)}
+    user_return_to =
+      Routes.event_show_path(
+        socket,
+        :show,
+        socket.assigns.group_slug,
+        socket.assigns.event.slug_id
+      )
+
+    auth_path =
+      Routes.auth_provider_path(socket, :store_redirect_to, :github, %{
+        user_return_to: user_return_to
+      })
+
+    {:noreply, push_redirect(socket, to: auth_path, replace: true)}
   end
 
   @impl true
