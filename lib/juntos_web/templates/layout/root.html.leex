@@ -8,26 +8,25 @@
     <%= live_title_tag assigns[:page_title] || "Juntos", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.5.55/css/materialdesignicons.min.css">
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <%= unless @current_user do %>
-              <li><a href="/auth/github">Login</a></li>
-            <% end %>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
+    <%= render("header.html") %>
     <%= @inner_content %>
+
+    <hr />
+    <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+      <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+    <% end %>
+
+    <ul>
+      <%= unless @current_user do %>
+        <li><a href="/auth/github">Login</a></li>
+      <% end %>
+      <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+    </ul>
+
   </body>
 </html>

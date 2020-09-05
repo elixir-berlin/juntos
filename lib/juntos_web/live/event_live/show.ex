@@ -26,7 +26,8 @@ defmodule JuntosWeb.EventLive.Show do
      |> assign(:group_slug, group_slug)
      |> assign(:changeset, changeset)
      |> assign(:attending, is_attending?(event, socket.assigns.current_user))
-     |> assign(:event, event)}
+     |> assign(:event, event)
+     |> assign(:group, group)}
   end
 
   @impl true
