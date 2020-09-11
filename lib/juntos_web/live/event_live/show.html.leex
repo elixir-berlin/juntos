@@ -44,21 +44,28 @@
 			</div>
 		      <div class="container" style="height: 2rem;"></div>
 			<div class="container">
-                          <%= if @attending do %>
+                          <%= unless @current_user do %>
+                                <button class="button is-rounded modal-button event-rsvp-btn" data-target="sign-in">RSVP</button>
+                          <% end %>
+                          <%= if @current_user && @attending do %>
                                   <button
                                   class="button is-rounded modal-button event-rsvp-btn" style="background-color: #F48FB1 !important">
                                   You are attending
                                   </button>
 
-                          <% else %>
+                          <% end %>
+                          <%= if @current_user && ! @attending do %>
 
-                            <%= _f = form_for @changeset, "#",
-                              id: "rsvp-form",
-                              phx_submit: "attend" %>
-                              <%= submit "RSVP", class: "button is-rounded modal-button event-rsvp-btn", phx_disable_with: "RSVP..." %>
+                              <%= _f = form_for @changeset, "#",
+                                id: "rsvp-form",
+                                phx_submit: "attend" %>
+                                <%= submit "RSVP", class: "button is-rounded event-rsvp-btn", phx_disable_with: "RSVP..." %>
+                                </form>
                             <% end %>
 			</div>
 	      </div>
 	  </div>
 	</div>
 </div>
+<%= live_component @socket, JuntosWeb.LoginComponent, id: :"sign-in", return_to: Routes.event_show_path(@socket, :show, @group_slug, @event.slug_id) %>
+<%= live_component @socket, JuntosWeb.LoginComponent, id: :"sign-up", return_to: Routes.event_show_path(@socket, :show, @group_slug, @event.slug_id) %>

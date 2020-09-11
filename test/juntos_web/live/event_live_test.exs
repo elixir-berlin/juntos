@@ -74,26 +74,10 @@ defmodule JuntosWeb.EventLiveTest do
       event: event,
       group: group
     } do
-      {:ok, show_live, _html} =
+      {:ok, _show_live, html} =
         live(conn, Routes.event_show_path(conn, :show, group.slug, event.slug_id))
 
-      user_return_to =
-        Routes.event_show_path(
-          conn,
-          :show,
-          group.slug,
-          event.slug_id
-        )
-
-      auth_path =
-        Routes.auth_provider_path(conn, :store_redirect_to, :github, %{
-          user_return_to: user_return_to
-        })
-
-      assert {:error, {:live_redirect, %{kind: :replace, to: ^auth_path}}} =
-               show_live
-               |> form("#rsvp-form")
-               |> render_submit()
+      assert html =~ "data-target=\"sign-in\">RSVP</button>"
     end
   end
 end

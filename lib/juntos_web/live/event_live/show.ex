@@ -31,24 +31,6 @@ defmodule JuntosWeb.EventLive.Show do
   end
 
   @impl true
-  def handle_event("attend", _params, %{assigns: %{current_user: nil}} = socket) do
-    user_return_to =
-      Routes.event_show_path(
-        socket,
-        :show,
-        socket.assigns.group_slug,
-        socket.assigns.event.slug_id
-      )
-
-    auth_path =
-      Routes.auth_provider_path(socket, :store_redirect_to, :github, %{
-        user_return_to: user_return_to
-      })
-
-    {:noreply, push_redirect(socket, to: auth_path, replace: true)}
-  end
-
-  @impl true
   def handle_event("attend", _params, socket) do
     case Meetups.attend_event(socket.assigns.event, socket.assigns.current_user) do
       {:ok, _} ->
