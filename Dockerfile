@@ -1,7 +1,5 @@
-ARG ALPINE_VERSION=3.10
-
 # Build image
-FROM elixir:1.10.3-alpine AS build
+FROM elixir:1.10.4-alpine AS build
 
 RUN apk add --update \
     git \
@@ -33,7 +31,7 @@ RUN cd assets && \
 RUN mix release
 
 # Final image
-FROM alpine:3.10
+FROM alpine:3.12.0
 
 RUN apk add --update ncurses-libs && \
     rm -rf /var/cache/apk/*

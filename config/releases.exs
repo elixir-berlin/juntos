@@ -9,6 +9,7 @@ config :juntos, Juntos.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :juntos, JuntosWeb.Endpoint,
+  url: [scheme: "https", host: System.get_env("HOSTNAME"), port: 443],
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
