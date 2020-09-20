@@ -105,4 +105,25 @@ defmodule Juntos.Meetups do
   def get_event_by(opts) do
     EventRepo.get_by(opts)
   end
+
+  alias Juntos.Meetups.Attendee
+
+  def attend_event(event, user) do
+    %Attendee{}
+    |> Attendee.changeset(event, user)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking Attendee changes.
+
+  ## Examples
+
+      iex> change_attendee()
+      %Ecto.Changeset{data: %Attendee{}}
+
+  """
+  def change_attendee(%Attendee{} = attendee) do
+    Attendee.changeset(attendee, nil, nil)
+  end
 end

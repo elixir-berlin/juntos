@@ -26,7 +26,7 @@ defmodule Juntos.MixProject do
   def application do
     [
       mod: {Juntos.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -55,6 +55,7 @@ defmodule Juntos.MixProject do
       {:ueberauth, "~> 0.6.3"},
       {:ueberauth_github, "~> 0.8.0"},
       {:token_operator, "~> 0.2.1"},
+      {:surface, "~> 0.1.0-alpha.2"},
       # test
       {:floki, ">= 0.0.0", only: :test},
       {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},

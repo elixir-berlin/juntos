@@ -53,6 +53,16 @@ defmodule Juntos.MeetupsTest do
     %{user: user}
   end
 
+  defp create_group(%{user: user}) do
+    group = Juntos.MeetupsFixtures.group_fixture(%{creator_id: user.id})
+    %{group: group}
+  end
+
+  defp create_event(%{group: group}) do
+    event = Juntos.MeetupsFixtures.event_fixture(%{group: group})
+    %{event: event}
+  end
+
   describe "events" do
     alias Juntos.Meetups.Event
 
@@ -99,6 +109,27 @@ defmodule Juntos.MeetupsTest do
 
       assert {:error, _} = Meetups.create_event(valid_attrs)
       assert Juntos.Repo.reload!(group).event_slug_counter == group.event_slug_counter
+    end
+  end
+
+  describe "atendees" do
+    alias Juntos.Meetups.Attendee
+
+    setup [:create_user, :create_group, :create_event]
+
+    test "attend_event/2 with valid params", %{user: user, event: event} do
+      assert {:ok, %Attendee{} = attendee} = Meetups.attend_event(event, user)
+      assert attendee.user_id == user.id
+      assert attendee.event_id == event.id
+    end
+
+    test "attend_event/2 with invalid params" do
+      assert {:error, _} = Meetups.attend_event(nil, nil)
+    end
+
+    test "attend_event/2 twice", %{user: user, event: event} do
+      assert {:ok, %Attendee{} = attendee} = Meetups.attend_event(event, user)
+      assert {:error, _} = Meetups.attend_event(event, user)
     end
   end
 end

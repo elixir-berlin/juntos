@@ -2,7 +2,7 @@ defmodule Juntos.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do
-    create table(:account_users, primary_key: false) do
+    create table(:users, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :username, :string, null: false
       add :name, :string
@@ -12,7 +12,7 @@ defmodule Juntos.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
-    create unique_index(:account_users, :username)
-    create unique_index(:account_users, :email)
+    create unique_index(:users, :username)
+    create unique_index(:users, :email)
   end
 end

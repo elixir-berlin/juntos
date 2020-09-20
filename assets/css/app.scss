@@ -1,91 +1,170 @@
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+
 /* This file is for your main application css. */
-@import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
 
-/* LiveView specific classes for your customizations */
-.invalid-feedback {
-  color: #a94442;
-  display: block;
-  margin: -1rem 0 2rem;
+.navbar {
+  height: 4rem;
 }
 
-.phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
-  display: none;
+.navbar .navbar-brand {
+  padding-left: 5.5rem !important;
 }
 
-.phx-click-loading {
-  opacity: 0.5;
-  transition: opacity 1s ease-out;
+.navbar .juntos-logo {
+  padding-top: 0.75rem;
 }
 
-.phx-disconnected{
-  cursor: wait;
-}
-.phx-disconnected *{
-  pointer-events: none;
-}
-
-.phx-modal {
-  opacity: 1!important;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-.phx-modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.phx-modal-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
+.juntos-logo {
+  font-family: Ubuntu;
+  font-size: 2.188rem;
   font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.016rem;
+  color: #ffffff;
 }
 
-.phx-modal-close:hover,
-.phx-modal-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+h4 {
+  font-family: Ubuntu;
+  font-size: 2.188rem !important;
+  font-weight: bold !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: 0.26px !important;
+  color: #000 !important;
+}
+
+h5 {
+  font-family: Ubuntu;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #000 !important;
+}
+
+h6 {
+  height: 1.75rem;
+  font-family: Ubuntu;
+  font-size: 1.25rem;
+  font-weight: bold !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: 0.15px;
+  text-align: center;
+  color: var(--color-03-on-primary-a-high-emphasis);
+}
+
+.subtitle1 {
+  font-family: Ubuntu;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 0.15px;
+  color: #000 !important;
+}
+
+.modal-subtitle {
+  font-family: WorkSans;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 0.44px;
+  text-align: center;
+}
+
+.event-body {
+  padding-left: 7rem !important;
+  padding-right: 7rem !important;
+  padding-top: 9rem !important;
+  padding-bottom: 6rem !important;
+  background-color:#eceff1;
+}
+
+.event-columns {
+  height: 26.5rem;
 }
 
 
-/* Alerts and form errors */
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+.event-title {
+  height: 9rem;display: table-cell;vertical-align: bottom;
 }
-.alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+
+.event-rsvp-btn {
+  height: 3.25rem !important;
+  width: 24rem !important;
+  background-color: #ffa000 !important;
+  font-size: 1rem !important;
+  font-family: 'Work Sans' !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  font-stretch: normal !important;
+  line-height: normal !important;
+  letter-spacing: 1.74px !important;
 }
-.alert-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+
+.sign-in-up-modal {
+  .modal-content {
+    width: 21.5rem;
+    height: 12.1rem;
+    background-color: #fff;
+  }
+  .close-button-container {
+    text-align: right;
+    padding-top: 8px;
+  }
+  .close-button {
+    border: 0px;
+    background-color: #fff;
+  }
+
+  .header-text {
+    margin-top: -0.75rem;
+  }
+
+  .modal-card-body {
+    padding-top: 0px;
+    padding-top: 0px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .identity-button-container {
+    padding-top: 1.5rem;
+  }
+
+  .identity-button{
+    width: 100%;
+    height: 2.75rem;
+    background-color: #37474f;
+    color: #fff;
+    font-family: WorkSans;
+    letter-spacing: 1.74px;
+  }
+  .more-text {
+    font-family: WorkSans;
+    font-size: 0.875rem;
+    text-align: center;
+    padding-top: 0.5rem;
+    letter-spacing: 0.016rem;
+    a {
+      color: #2db5ca;
+    }
+  }
 }
-.alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
-}
-.alert p {
-  margin-bottom: 0;
-}
-.alert:empty {
-  display: none;
-}
+
+$navbar-background-color: #37474f;
+$family-sans-serif: "Ubuntu";
+$pink: #ff8080;
+$primary: $pink;
+@import "../node_modules/bulma/bulma";

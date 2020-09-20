@@ -4,6 +4,12 @@ defmodule JuntosWeb.AuthProviderController do
 
   alias Juntos.Accounts
 
+  def store_redirect_to(conn, _params) do
+    conn
+    |> put_session(:user_return_to, conn.params["user_return_to"])
+    |> redirect(to: Routes.auth_provider_path(conn, :request, conn.params["provider"]))
+  end
+
   def callback(%{assigns: %{ueberauth_auth: ueberauth_auth}} = conn, _params) do
     internal_callback(conn, ueberauth_auth)
   end

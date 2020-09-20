@@ -18,6 +18,7 @@ defmodule Juntos.Meetups.EventRepo do
     Event
     |> TokenOperator.maybe(opts, :slug_id, &by_slug_id/2)
     |> TokenOperator.maybe(opts, :group_id, &by_group_id/2)
+    |> TokenOperator.maybe(opts, :include, attendees: &preload_attendees/1)
     |> Repo.one()
   end
 
@@ -27,5 +28,9 @@ defmodule Juntos.Meetups.EventRepo do
 
   defp by_group_id(query, %{group_id: group_id}) do
     from(event in query, where: event.group_id == ^group_id)
+  end
+
+  defp preload_attendees(query) do
+    from e in query, preload: :attendees
   end
 end

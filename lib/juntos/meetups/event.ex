@@ -11,6 +11,7 @@ defmodule Juntos.Meetups.Event do
     field :starts_at, :naive_datetime
     field :title, :string
     belongs_to :group, Juntos.Meetups.Group
+    has_many :attendees, Juntos.Meetups.Attendee
 
     timestamps()
   end

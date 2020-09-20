@@ -1,25 +1,71 @@
-<h1>Show Event</h1>
+<div class="container is-fluid event-body">
+	<div class="columns is-variable is-4 event-columns">
+	  <div class="column is-half" style="border-style: solid;padding: 0px;border-radius: 4px"></div>
+       	  <div class="column is-1"></div>
+	  <div class="column " style="padding: 0px;">
+	      <div>
+		      <div style="height: 9rem;display: table-cell;vertical-align: bottom;"><h4><%= @event.title %></h4></div>
+		      <div class="container" style="height: 1rem;"></div>
+			<div class="container">
+				<div class="columns">
+					<div class="column is-1" style="padding-bottom: 0px;"> <i class="mdi mdi-24px mdi-calendar"></i></div>
+                                        <div class="column is-four-fifths" style="padding-bottom: 0px;padding-left: 0px">
+                                          <h5 style="padding-top: 0.2rem;"> January <%= @event.starts_at.day %></h5>
+                                        </div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="columns">
+					<div class="column is-1" style="padding-bottom: 0px;"> <i class="mdi mdi-24px mdi-clock"></i></div>
+                                        <div class="column is-four-fifths" style="padding-bottom: 0px;;padding-left: 0px">
+                                            <div class="subtitle1" style="padding-top: 0.4rem">
+                                            <%= @event.starts_at.hour %>:<%= @event.starts_at.minute %>
+                                              to
+                                              <%= @event.ends_at.hour %>:<%= @event.ends_at.minute %>
+                                          </div>
+                                        </div>
+				</div>
 
-<ul>
+			</div>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @event.title %>
-  </li>
+			<div class="container">
+				<div class="columns">
+					<div class="column is-1" style="padding-bottom: 0px;"> <i class="mdi mdi-24px mdi-map-marker"></i></div>
+					<div class="column is-four-fifths" style="padding-bottom: 0px;;padding-left: 0px"> <div class="subtitle1" style="padding-top: 0.4rem"> Virtual meeting</div></div>
+				</div>
 
-  <li>
-    <strong>Starts at:</strong>
-    <%= @event.starts_at %>
-  </li>
+			</div>
+			<div class="container">
+				<div class="columns">
+					<div class="column is-1" style="padding-bottom: 0px;"> <i class="mdi mdi-24px mdi-account-group"></i></div>
+                                        <div class="column is-four-fifths" style="padding-bottom: 0px;;padding-left: 0px"> <div class="subtitle1" style="padding-top: 0.4rem">By <%= @group.name %></div></div>
+				</div>
 
-  <li>
-    <strong>Ends at:</strong>
-    <%= @event.ends_at %>
-  </li>
+			</div>
+		      <div class="container" style="height: 2rem;"></div>
+			<div class="container">
+                          <%= unless @current_user do %>
+                                <button class="button is-rounded modal-button event-rsvp-btn" data-target="sign-in">RSVP</button>
+                          <% end %>
+                          <%= if @current_user && @attending do %>
+                                  <button
+                                  class="button is-rounded modal-button event-rsvp-btn" style="background-color: #F48FB1 !important">
+                                  You are attending
+                                  </button>
 
-  <li>
-    <strong>Slug:</strong>
-    <%= @event.slug_id %>
-  </li>
+                          <% end %>
+                          <%= if @current_user && ! @attending do %>
 
-</ul>
+                              <%= _f = form_for @changeset, "#",
+                                id: "rsvp-form",
+                                phx_submit: "attend" %>
+                                <%= submit "RSVP", class: "button is-rounded event-rsvp-btn", phx_disable_with: "RSVP..." %>
+                                </form>
+                            <% end %>
+			</div>
+	      </div>
+	  </div>
+	</div>
+</div>
+<%= live_component @socket, JuntosWeb.LoginComponent, id: :"sign-in", return_to: Routes.event_show_path(@socket, :show, @group_slug, @event.slug_id) %>
+<%= live_component @socket, JuntosWeb.LoginComponent, id: :"sign-up", return_to: Routes.event_show_path(@socket, :show, @group_slug, @event.slug_id) %>

@@ -24,6 +24,7 @@ defmodule JuntosWeb.Router do
 
     get "/auth/:provider", AuthProviderController, :request
     get "/auth/:provider/callback", AuthProviderController, :callback
+    get "/auth/:provider/rd", AuthProviderController, :store_redirect_to
 
     resources "/users", UserController, only: [:new, :create]
   end
