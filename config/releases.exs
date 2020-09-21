@@ -17,3 +17,7 @@ config :juntos, JuntosWeb.Endpoint,
   secret_key_base: secret_key_base
 
 config :juntos, JuntosWeb.Endpoint, server: true
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET")
